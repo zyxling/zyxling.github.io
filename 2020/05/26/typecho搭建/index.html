@@ -4,7 +4,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="theme-color" content=#58b77a>
-  <title>第一次笔记 | Hexo</title>
+  <title>typecho搭建 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
@@ -69,8 +69,8 @@
   <div class="overlay">
   <div class="page-title">
     <div class="avatar"><a href="/"><img src="/images/avatar.jpeg"></a></div>
-    <span>2020-04-24</span>
-    <h2>第一次笔记</h2>
+    <span>2020-05-26</span>
+    <h2>typecho搭建</h2>
     
     </div>
 </div>
@@ -80,18 +80,76 @@
   <div class="lx-post">
     <div class="lx-entry padding">
       <div>
-        <p><a href="https://npm.taobao.org/mirrors/git-for-windows/" target="_blank" rel="noopener">这里是一个下载git的好地方</a></p>
-<p>  hexo初始化有问题的解决方案：<br>依次输入:</p>
-<ul>
-<li>npm audit fix</li>
-<li>npm audit fix –force</li>
-<li>npm audit之后再输入hexo init<br>上博客之前在myHexo文件夹中，打开终端</li>
-</ul>
-<ol>
-<li>hexo clean:清理缓存</li>
-<li>hexo generate：生成hexo</li>
-<li>hexo deploy:部署hexo</li>
-</ol>
+        <h1 id="typecho搭建"><a href="#typecho搭建" class="headerlink" title="typecho搭建"></a>typecho搭建</h1><h3 id="1-Apache的安装与使用"><a href="#1-Apache的安装与使用" class="headerlink" title="1.Apache的安装与使用"></a>1.Apache的安装与使用</h3><p>下载地址：<a href="https://www.apachelounge.com/download/" target="_blank" rel="noopener">https://www.apachelounge.com/download/</a>    </p>
+<p>1.打开conf/heepd.conf修改Apache的配置   </p>
+<p>Define SRVROOT “C:/Apache24”</p>
+<p>ServerRoot “${SRVROOT}”  </p>
+<p>2.在文件末尾添加：</p>
+<p>注：#意思是注释</p>
+<p># php7 support C:\Apache24\php7</p>
+<p>LoadModule php7_module “C:/Apache24/php7/php7apache2_4.dll”</p>
+<p>AddType application/x-httpd-php .php .html .htm</p>
+<p>#configure the path to php.ini</p>
+<p>PHPIniDir “C:/Apache24/php7”</p>
+<p>3.安装成功后，运行Apache24/bin/httpd.exe,在浏览器地址栏输入localhost，如果页面出现It works则Apache运行成功</p>
+<h3 id="2-PHP的安装与使用"><a href="#2-PHP的安装与使用" class="headerlink" title="2.PHP的安装与使用"></a>2.PHP的安装与使用</h3><p>1.PHP下载时最好从官网下载，否则可能出现找不到php7apache2_4.dll扩展的情况  </p>
+<p>下载地址：<a href="https://windows.php.net/download" target="_blank" rel="noopener">https://windows.php.net/download</a></p>
+<p>2.复制将 PHP 的根目录下的 php.ini-development复制一份并改名为 php.ini，作为PHP的配置文件；</p>
+<p>3.打开php.ini，修改配置信息</p>
+<p>把; extension_dir = “ext” 改为extension_dir = “C:\Apache24\php7\ext”</p>
+<p>4.修改需要加载的扩展文件</p>
+<p>注：.ini文件的注释是分号（英文分号），所以取消注释就删除分号；</p>
+<p>;extension=bz2</p>
+<p>;extension=curl</p>
+<p>;extension=ffi</p>
+<p>;extension=ftp</p>
+<p>extension=fileinfo</p>
+<p>extension=gd2</p>
+<p>;extension=gettext</p>
+<p>;extension=gmp</p>
+<p>;extension=intl</p>
+<p>extension=imap</p>
+<p>;extension=ldap</p>
+<p>;extension=mbstring</p>
+<p>;extension=exif   ; Must be after mbstring as it depends on it</p>
+<p>extension=mysqli</p>
+<p>extension=oci8_12c ; Use with Oracle Database 12c Instant Client</p>
+<p>;extension=odbc</p>
+<p>extension=openssl</p>
+<p>;extension=pdo_firebird</p>
+<p>extension=pdo_mysql</p>
+<p>;extension=pdo_oci</p>
+<p>;extension=pdo_odbc</p>
+<p>;extension=pdo_pgsql</p>
+<p>;extension=pdo_sqlite</p>
+<p>;extension=pgsql</p>
+<p>;extension=shmop</p>
+<p>; The MIBS data available in the PHP distribution must be installed.</p>
+<p>; See <a href="http://www.php.net/manual/en/snmp.installation.php" target="_blank" rel="noopener">http://www.php.net/manual/en/snmp.installation.php</a></p>
+<p>;extension=snmp</p>
+<p>;extension=soap</p>
+<p>extension=sockets</p>
+<p>;extension=sodium</p>
+<p>;extension=sqlite3</p>
+<p>;extension=tidy</p>
+<p>;extension=xmlrpc</p>
+<p>;extension=xsl</p>
+<p>5.在Apache/htdocs里新建index.php，写入</p>
+<?php
+
+echo phpinfo();
+
+?>
+
+<p>6.重启服务器，地址栏输入localhost/index.php，如果出现</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/4096428-c7c0677b67495aa2.png?imageMogr2/auto-orient/strip%7CimageView2/2/format/webp" alt="alt"></p>
+<p>则代表运行成功</p>
+<h3 id="3-部署typecho"><a href="#3-部署typecho" class="headerlink" title="3.部署typecho"></a>3.部署typecho</h3><p>1.删除index.php,把build文件里的所有内容拖入htdocs里，注意不要拖入build文件夹，省的还得重配路径</p>
+<p>2.重启服务器，打开浏览器，在地址栏输入127.0.0.1就可以看到初始的typecho了</p>
+<p>注意：我的文件夹安排：</p>
+<p>![alt](C:\Users\zyx\Desktop\批注 2020-05-26 230823.png)</p>
+<p>下一篇讲解如何使用typecho</p>
+<p>大佬名言：怕什么真理无穷，进一寸有一寸的欢喜</p>
 
       </div>
     </div>
@@ -113,12 +171,12 @@
 	</div>
         <div class="lx-cover next lx-cover-sm" style="background-image: url(//cdn.jsdelivr.net/npm/theme-lx@0.3.9/source/images/footer-r.jpeg)">
 		<div class="overlay"></div>
-		<a class="copy" href="/2020/04/21/hello-world/">
+		<a class="copy" href="/2020/04/27/springmvc%20web%20mvc%E5%A4%84%E7%90%86HTTP%E8%AF%B7%E6%B1%82%E7%9A%84%E8%BF%87%E7%A8%8B/">
 			<div class="display-t">
 				<div class="display-tc">
 					<div>
 						<span>Prev</span>
-						<h3>Hello W...</h3>
+						<h3>springm...</h3>
 					</div>
 				</div>
 			</div>

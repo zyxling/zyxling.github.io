@@ -4,7 +4,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="theme-color" content=#58b77a>
-  <title>Hello World | Hexo</title>
+  <title>springmvc web mvc处理HTTP请求的过程 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
@@ -69,8 +69,8 @@
   <div class="overlay">
   <div class="page-title">
     <div class="avatar"><a href="/"><img src="/images/avatar.jpeg"></a></div>
-    <span>2020-04-21</span>
-    <h2>Hello World</h2>
+    <span>2020-04-27</span>
+    <h2>springmvc we...</h2>
     
     </div>
 </div>
@@ -80,20 +80,7 @@
   <div class="lx-post">
     <div class="lx-entry padding">
       <div>
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: [Deployment](<a href="https://hexo.io/docs/one-command-deployment" target="_blank" rel="noopener">https://hexo.io/docs/one-command-deployment</a>.</p>
-<p>html)</p>
+        <h3 id="Java中ModelAndView是做什么的"><a href="#Java中ModelAndView是做什么的" class="headerlink" title="Java中ModelAndView是做什么的?"></a>Java中ModelAndView是做什么的?</h3><p>Spring Web MVC 处理Http请求的大致过程：<br>一旦Http请求到来，DispatcherSevlet将负责将请求分发。DispatcherServlet可以认为是Spring提供的前端控制器，所有的请求都有经过它来统一分发。<br>在DispatcherServlet将请求分发给Spring Controller之前，需要借助于Spring提供的HandlerMapping定位到具体的Controller。HandlerMapping是这样一种对象，它能够完成客户请求到Controller之间的映射。在Struts中，这种映射是通过struts-config.xml文件完成的。其中，Spring为Controller接口提供了若干实现，例如Spring默认使用的BeanNameUrlHandlerMapping。还有，SimpleUrlHandlerMapping，CommonsPathMapHandlerMapping。<br>Spring Controller将处理来自DispatcherServlet的请求。Spring的Controller类似于struts的Action，能够接受HttpServletRequest和HttpServletResponse。Spring为Controller接口提供了若干实现类，位于org.springframework.web.servlet.mvc包中。由于Controller需要为并发用户处理上述请求，因此实现Controller接口时，必须保证线程安全并且可重用。Controller将处理客户请求，这和Struts Action 扮演的角色是一致的。<br>一旦Controller处理完客户请求，则返回ModelAndView对象给DispatcherServlet前端控制器。ModelAndView中包含了模型（Model）和视图（View）。从宏观角度考虑，DispatcherServlet是整个Web应用的控制器；从微观角度考虑，Controller是单个Http请求处理过程中的控制器，而ModelAndView是Http请求过程中返回的模型和视图。前端控制器返回的视图可以是视图的逻辑名，或者实现了View接口的对象。View对象能够渲染客户响应结果。其中，ModelAndView中的模型能够供渲染View时使用。借助于Map对象能够存储模型。<br>如果ModelAndView返回的视图只是逻辑名，则需要借助Spring提供的视图解析器（ViewResoler）在Web应用中查找View对象，从而将响应结果渲染给客户。<br>DispatcherServlet将View对象渲染出的结果返回个客户。</p>
 
       </div>
     </div>
@@ -102,12 +89,12 @@
 <div class="lx-navigation">
 	<div class="lx-cover prev lx-cover-sm" style="background-image: url(//cdn.jsdelivr.net/npm/theme-lx@0.3.9/source/images/footer-l.jpeg)">
 		<div class="overlay"></div>
-		<a class="copy" href="/2020/04/24/%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/">
+		<a class="copy" href="/2020/05/26/typecho%E6%90%AD%E5%BB%BA/">
 			<div class="display-t">
 				<div class="display-tc">
 					<div>
 						<span>Next</span>
-						<h3>搭建博客</h3>
+						<h3>typecho搭建</h3>
 					</div>
 				</div>
 			</div>
@@ -115,12 +102,12 @@
 	</div>
         <div class="lx-cover next lx-cover-sm" style="background-image: url(//cdn.jsdelivr.net/npm/theme-lx@0.3.9/source/images/footer-r.jpeg)">
 		<div class="overlay"></div>
-		<a class="copy" href="#">
+		<a class="copy" href="/2020/04/24/%E9%A1%B9%E7%9B%AE%E7%AC%94%E8%AE%B0/">
 			<div class="display-t">
 				<div class="display-tc">
 					<div>
 						<span>Prev</span>
-						<h3>No older post</h3>
+						<h3>项目笔记</h3>
 					</div>
 				</div>
 			</div>
